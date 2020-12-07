@@ -10,3 +10,5 @@ For contributing:
 - download all lectures on private youtube channel and add links to the videos in each folder, e.x. ```week1``` ...
 - add lab1 task1 shell command 
 - quiz1 q20, q28 add comments
+- add lab2 solution ex5 with comments
+- quiz2 task4 add solution
