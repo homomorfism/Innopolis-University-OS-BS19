@@ -19,3 +19,5 @@ For contributing:
 - quiz3 task1 add explanation
 - quiz3 task4 add explanation
 - quiz3 task7 add explanation
+- lab4 task4 check implementation (mine contains bugs)
+- quiz4 task5 add explanation
