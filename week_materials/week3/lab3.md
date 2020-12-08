@@ -1,390 +1,356 @@
-{
- "cells": [],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 2
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython2",
-   "version": "2.7.6"
-  },
-  "pycharm": {
-   "stem_cell": {
-    "cell_type": "raw",
-    "source": [
-     "  \n",
-     "\n",
-     "#### Exercise 1\n",
-     "\n",
-     "Compile and run the following program:\n",
-     "```\n",
-     "#include <stdio.h>\n",
-     "int main(){\n",
-     "\tint* pc;\n",
-     "\tint c;\n",
-     "\tc=22;\n",
-     "\n",
-     "\tprintf(\"Address of c:%d\\n\",&c);\n",
-     "\tprintf(\"Value of c:%d\\n\\n\",c);\n",
-     "\n",
-     "\tpc=&c;\n",
-     "\n",
-     "\tprintf(\"Address of pointer pc:%d\\n\",pc);\n",
-     "\tprintf(\"Content of pointer pc:%d\\n\\n\",*pc);\n",
-     "\n",
-     "\tc=11;\n",
-     "\n",
-     "\tprintf(\"Address of pointer pc:%d\\n\",pc);\n",
-     "\tprintf(\"Content of pointer pc:%d\\n\\n\",*pc);\n",
-     "\n",
-     "\t*pc=2;\n",
-     "\n",
-     "\tprintf(\"Address of c:%d\\n\",&c);\n",
-     "\tprintf(\"Value of c:%d\\n\\n\",c);\n",
-     "\treturn 0;\n",
-     "}```\n",
-     "\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Solution 1\n",
-     "\n",
-     "\n",
-     "To be added\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Exercise 2\n",
-     "\n",
-     "Write a function bubble_sort() which will accept an array of integers and sort it in place using Bubble sort* algorithm\n",
-     "\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Solution 2\n",
-     "\n",
-     "\n",
-     "```C++\n",
-     "#include <stdio.h>\n",
-     "\n",
-     "// function of sorting,, which inputs an array and its size\n",
-     "void bubble_sort(int* a, int size) {\n",
-     "\tfor (int i = 0; i < size; ++i)\n",
-     "\t{\n",
-     "\t\t// here algo could be optimized, we don't need n**2 steps, but only 0.5*n**2\n",
-     "\t\tfor (int j = 1; j < size; ++j)\n",
-     "\t\t{\n",
-     "\t\t\t// if prev. element greater that this one => swap them\n",
-     "\t\t\tif (a[j - 1] > a[j])\n",
-     "\t\t\t{\n",
-     "\t\t\t\tint t = a[j - 1];\n",
-     "\t\t\t\ta[j - 1] = a[j];\n",
-     "\t\t\t\ta[j] = t;\n",
-     "\t\t\t}\n",
-     "\t\t}\n",
-     "\t}\n",
-     "}\n",
-     "\n",
-     "int main() {\n",
-     "\tint a[13] = {1, 5, 2, 8, 1, 9, 9, 5, 0, 7, 2, 4, 5};\n",
-     "\tbubble_sort(a, 13);\n",
-     "\n",
-     "\tfor (int i = 0; i < 13; ++i) {\n",
-     "\t\tprintf(\"%d \", a[i]);\n",
-     "\t}\n",
-     "\tprintf(\"\\n\");\n",
-     "}```\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Exercise 3\n",
-     "\n",
-     " Write a program that creates a **linked list** containing integers and uses the next functions:\n",
-     "- a function ```print_list()``` that will print out the value of each element\n",
-     "- a function ```insert_node()``` which will insert a new\n",
-     "element after some existing element\n",
-     "- a function ```delete_node()``` which will delete a certain element\n",
-     "\n",
-     "![linked list](linked_list.jpg)\n",
-     "\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Solution 3\n",
-     "\n",
-     "In my implementation I created a single linked list - he has empty (NULL) head and tail and head points to tail.\n",
-     "\n",
-     "```\n",
-     "#include <stdio.h>\n",
-     "#include <stdlib.h>\n",
-     "\n",
-     "// Container for storing element\n",
-     "struct Node {\n",
-     "\t// ptr to the next node (element)\n",
-     "\tstruct Node* next;\n",
-     "\tint value;\n",
-     "};\n",
-     "\n",
-     "// My list, I store head & tail & size of List\n",
-     "// We could optimize my implementation & don't store size of snake\n",
-     "struct List {\n",
-     "\tstruct Node* head;\n",
-     "\tstruct Node* tail;\n",
-     "\tint size;\n",
-     "};\n",
-     "\n",
-     "\n",
-     "void print_list(struct List* list) {\n",
-     "\tstruct Node* current = list->head;\n",
-     "\n",
-     "\twhile (current->next != list->tail) {\n",
-     "\t\tcurrent = current->next;\n",
-     "\t\tprintf(\"%d \", current->value);\n",
-     "\t}\n",
-     "\tprintf(\"\\n\");\n",
-     "}\n",
-     "\n",
-     "void insert(struct List* list, int val) {\n",
-     "\tstruct Node* current = list->head;\n",
-     "    list->size++;\n",
-     "\n",
-     "\twhile (current->next != list->tail) {\n",
-     "\t\tcurrent = current->next;\n",
-     "\t}\n",
-     "\n",
-     "\tstruct Node* node = (struct Node*)malloc(sizeof(struct Node*));\n",
-     "\tnode->value = val;\n",
-     "\tnode->next = list->tail;\n",
-     "\tcurrent->next = node;\n",
-     "}\n",
-     "\n",
-     "void delete_node(struct List* list, int val) {\n",
-     "\tstruct Node* current = list->head;\n",
-     "\tlist->size--;\n",
-     "\n",
-     "\twhile (current->next != list->tail) {\n",
-     "\n",
-     "\t\tif (current->next->value == val) {\n",
-     "\t\t\tstruct Node* tmp = current->next;\n",
-     "\n",
-     "\t\t\tcurrent->next = current->next->next;\n",
-     "\t\t\tfree(tmp);\n",
-     "\t\t\treturn;\n",
-     "\t\t}\n",
-     "\t\tcurrent = current->next;\n",
-     "\t}\n",
-     "}\n",
-     "\n",
-     "\n",
-     "int main() {\n",
-     "\tstruct List* list = (struct List*)malloc(sizeof(struct List*));\n",
-     "\tlist->size = 0;\n",
-     "\tlist->head = (struct Node*)malloc(sizeof(struct Node*));\n",
-     "\tlist->tail = (struct Node*)malloc(sizeof(struct Node*));\n",
-     "\tlist->head->next = list->tail;\n",
-     "\n",
-     "\n",
-     "\tprint_list(list);\n",
-     "\n",
-     "\tinsert(list, 3);\n",
-     "\tinsert(list, 2);\n",
-     "\tinsert(list, 9);\n",
-     "\tinsert(list, 7);\n",
-     "\tinsert(list, 5);\n",
-     "\tinsert(list, 2);\n",
-     "\tprint_list(list);\n",
-     "\tdelete_node(list, 9);\n",
-     "\tprint_list(list);\n",
-     "\tinsert(list, 5);\n",
-     "\tinsert(list, 2);\n",
-     "\tprint_list(list);\n",
-     "\n",
-     "}```\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Exercise 4\n",
-     "\n",
-     "Implement a **Quicksort** algorithm:\n",
-     "- Pick an element, called a pivot, from the array\n",
-     "- Partitioning: reorder the array so that all elements with values less than the pivot come before the pivot, while all elements with values greater than the pivot come after it\n",
-     "(equal values can go either way). After this partitioning, the\n",
-     "pivot is in its final position. This is called the partition\n",
-     "operation\n",
-     "- Recursively apply the above steps to the sub-array of\n",
-     "elements with smaller values and separately to the sub-array\n",
-     "of elements with greater values\n",
-     "\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Solution 4\n",
-     "\n",
-     "Comments to be added\n",
-     "```\n",
-     "#include <stdio.h>\n",
-     "\n",
-     "\n",
-     "void swap(int *pInt, int i, int j) {\n",
-     "    int temp = pInt[i];\n",
-     "    pInt[i] = pInt[j];\n",
-     "    pInt[j] = temp;\n",
-     "}\n",
-     "\n",
-     "int partition(int *array, int low, int high) {\n",
-     "    int pivot = array[high];\n",
-     "    int i = low - 1;\n",
-     "\n",
-     "    for (int j = low; j <= high - 1; ++j) {\n",
-     "        if (array[j] < pivot) {\n",
-     "            i++;\n",
-     "            swap(array, i, j);\n",
-     "        }\n",
-     "    }\n",
-     "    swap(array, i + 1, high);\n",
-     "\n",
-     "    return i + 1;\n",
-     "}\n",
-     "\n",
-     "void qsort(int* array, int low, int high) {\n",
-     "    if (low < high) {\n",
-     "        int pi = partition(array, low, high);\n",
-     "\n",
-     "        qsort(array, low, pi - 1);\n",
-     "        qsort(array, pi + 1, high);\n",
-     "    }\n",
-     "}\n",
-     "\n",
-     "\n",
-     "int main() {\n",
-     "    int array[10] = {1, 6, 4, 3, 9, 8, 8, 7, 5, 6};\n",
-     "    int size = 10;\n",
-     "    qsort(array, 0, size - 1);\n",
-     "\n",
-     "    for (int i = 0; i < size; ++i) {\n",
-     "        printf(\"%d \", array[i]);\n",
-     "    }\n",
-     "}\n",
-     "```\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Exercise 5\n",
-     "\n",
-     "Change your linked list implementation to a **doubly linked list**\n",
-     "\n",
-     "  \n",
-     "\n",
-     "#### Solution 5\n",
-     "\n",
-     "Comments to be added.\n",
-     "\n",
-     "```\n",
-     "#include <stdio.h>\n",
-     "#include <stdlib.h>\n",
-     "#include <assert.h>\n",
-     "\n",
-     "struct Node {\n",
-     "    struct Node *prev, *next;\n",
-     "    int value;\n",
-     "};\n",
-     "\n",
-     "struct List {\n",
-     "    struct Node *head, *tail;\n",
-     "    int size;\n",
-     "};\n",
-     "\n",
-     "\n",
-     "void print_list(struct List* list) {\n",
-     "    struct Node* current = list->head;\n",
-     "\n",
-     "    while (current->next != list->tail) {\n",
-     "        current = current->next;\n",
-     "        printf(\"%d \", current->value);\n",
-     "    }\n",
-     "    printf(\"\\n\");\n",
-     "}\n",
-     "\n",
-     "void insert(struct List* list, int val) {\n",
-     "    struct Node* current = list->head;\n",
-     "    list->size++;\n",
-     "\n",
-     "    while (current->next != list->tail) {\n",
-     "        current = current->next;\n",
-     "    }\n",
-     "\n",
-     "    struct Node* node = (struct Node*)malloc(sizeof(struct Node*));\n",
-     "    node->value = val;\n",
-     "    node->next = list->tail;\n",
-     "    current->next = node;\n",
-     "    node->prev = current;\n",
-     "    list->tail->prev = node;\n",
-     "\n",
-     "    list->size += 1;\n",
-     "}\n",
-     "\n",
-     "void delete(struct List* list, int val) {\n",
-     "    struct Node* current = list->head;\n",
-     "    list->size--;\n",
-     "\n",
-     "    while (current->next != list->tail) {\n",
-     "\n",
-     "        if (current->next->value == val) {\n",
-     "            struct Node* tmp = current->next;\n",
-     "\n",
-     "            current->next = current->next->next;\n",
-     "            current->next->prev = current;\n",
-     "            free(tmp);\n",
-     "            return;\n",
-     "        }\n",
-     "        current = current->next;\n",
-     "    }\n",
-     "}\n",
-     "\n",
-     "int main() {\n",
-     "    struct List* list = (struct List*)malloc(sizeof(struct List*));\n",
-     "    list->size = 0;\n",
-     "    list->head = (struct Node*)malloc(sizeof(struct Node*));\n",
-     "    list->tail = (struct Node*)malloc(sizeof(struct Node*));\n",
-     "    list->head->next = list->tail;\n",
-     "    list->tail->prev = list->head;\n",
-     "\n",
-     "    assert(list != NULL && list->head != NULL && list->tail != NULL);\n",
-     "\n",
-     "    print_list(list);\n",
-     "\n",
-     "    int values[5] = {4, 6, 2, 8, 9};\n",
-     "    for (int i = 0 ; i < sizeof(values) / sizeof(int); ++i) {\n",
-     "        insert(list, values[i]);\n",
-     "    }\n",
-     "\n",
-     "    print_list(list);\n",
-     "\n",
-     "    delete(list, 6);\n",
-     "    print_list(list);\n",
-     "    for (int i = 0 ; i < sizeof(values) / sizeof(int); ++i) {\n",
-     "        insert(list, values[i]);\n",
-     "    }\n",
-     "    print_list(list);\n",
-     "\n",
-     "}```\n"
-    ],
-    "metadata": {
-     "collapsed": false
-    }
-   }
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 0
+
+#### Exercise 1
+
+Compile and run the following program:
+```c
+#include <stdio.h>
+int main(){
+	int* pc;
+	int c;
+	c=22;
+
+	printf("Address of c:%d\n",&c);
+	printf("Value of c:%d\n\n",c);
+
+	pc=&c;
+
+	printf("Address of pointer pc:%d\n",pc);
+	printf("Content of pointer pc:%d\n\n",*pc);
+
+	c=11;
+
+	printf("Address of pointer pc:%d\n",pc);
+	printf("Content of pointer pc:%d\n\n",*pc);
+
+	*pc=2;
+
+	printf("Address of c:%d\n",&c);
+	printf("Value of c:%d\n\n",c);
+	return 0;
 }
+```
+
+
+  
+
+#### Solution 1
+
+
+To be added
+
+---
+
+#### Exercise 2
+
+Write a function bubble_sort() which will accept an array of integers and sort it in place using Bubble sort* algorithm
+
+
+#### Solution 2
+
+
+```c
+#include <stdio.h>
+
+// function of sorting,, which inputs an array and its size
+void bubble_sort(int* a, int size) {
+	for (int i = 0; i < size; ++i)
+	{
+		// here algo could be optimized, we don't need n**2 steps, but only 0.5*n**2
+		for (int j = 1; j < size; ++j)
+		{
+			// if prev. element greater that this one => swap them
+			if (a[j - 1] > a[j])
+			{
+				int t = a[j - 1];
+				a[j - 1] = a[j];
+				a[j] = t;
+			}
+		}
+	}
+}
+
+int main() {
+	int a[13] = {1, 5, 2, 8, 1, 9, 9, 5, 0, 7, 2, 4, 5};
+	bubble_sort(a, 13);
+
+	for (int i = 0; i < 13; ++i) {
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+}
+```
+
+---
+
+#### Exercise 3
+
+ Write a program that creates a **linked list** containing integers and uses the next functions:
+- a function ```print_list()``` that will print out the value of each element
+- a function ```insert_node()``` which will insert a new
+element after some existing element
+- a function ```delete_node()``` which will delete a certain element
+
+![linked list](linked_list.jpg)
+
+
+  
+
+#### Solution 3
+
+In my implementation I created a single linked list - he has empty (NULL) head and tail and head points to tail.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// Container for storing element
+struct Node {
+	// ptr to the next node (element)
+	struct Node* next;
+	int value;
+};
+
+// My list, I store head & tail & size of List
+// We could optimize my implementation & don't store size of snake
+struct List {
+	struct Node* head;
+	struct Node* tail;
+	int size;
+};
+
+
+void print_list(struct List* list) {
+	struct Node* current = list->head;
+
+	while (current->next != list->tail) {
+		current = current->next;
+		printf("%d ", current->value);
+	}
+	printf("\n");
+}
+
+void insert(struct List* list, int val) {
+	struct Node* current = list->head;
+    list->size++;
+
+	while (current->next != list->tail) {
+		current = current->next;
+	}
+
+	struct Node* node = (struct Node*)malloc(sizeof(struct Node*));
+	node->value = val;
+	node->next = list->tail;
+	current->next = node;
+}
+
+void delete_node(struct List* list, int val) {
+	struct Node* current = list->head;
+	list->size--;
+
+	while (current->next != list->tail) {
+
+		if (current->next->value == val) {
+			struct Node* tmp = current->next;
+
+			current->next = current->next->next;
+			free(tmp);
+			return;
+		}
+		current = current->next;
+	}
+}
+
+
+int main() {
+	struct List* list = (struct List*)malloc(sizeof(struct List*));
+	list->size = 0;
+	list->head = (struct Node*)malloc(sizeof(struct Node*));
+	list->tail = (struct Node*)malloc(sizeof(struct Node*));
+	list->head->next = list->tail;
+
+
+	print_list(list);
+
+	insert(list, 3);
+	insert(list, 2);
+	insert(list, 9);
+	insert(list, 7);
+	insert(list, 5);
+	insert(list, 2);
+	print_list(list);
+	delete_node(list, 9);
+	print_list(list);
+	insert(list, 5);
+	insert(list, 2);
+	print_list(list);
+
+}
+```
+
+---
+
+#### Exercise 4
+
+Implement a **Quicksort** algorithm:
+- Pick an element, called a pivot, from the array
+- Partitioning: reorder the array so that all elements with values less than the pivot come before the pivot, while all elements with values greater than the pivot come after it
+(equal values can go either way). After this partitioning, the
+pivot is in its final position. This is called the partition
+operation
+- Recursively apply the above steps to the sub-array of
+elements with smaller values and separately to the sub-array
+of elements with greater values
+
+
+  
+
+#### Solution 4
+
+Comments to be added
+```
+#include <stdio.h>
+
+
+void swap(int *pInt, int i, int j) {
+    int temp = pInt[i];
+    pInt[i] = pInt[j];
+    pInt[j] = temp;
+}
+
+int partition(int *array, int low, int high) {
+    int pivot = array[high];
+    int i = low - 1;
+
+    for (int j = low; j <= high - 1; ++j) {
+        if (array[j] < pivot) {
+            i++;
+            swap(array, i, j);
+        }
+    }
+    swap(array, i + 1, high);
+
+    return i + 1;
+}
+
+void qsort(int* array, int low, int high) {
+    if (low < high) {
+        int pi = partition(array, low, high);
+
+        qsort(array, low, pi - 1);
+        qsort(array, pi + 1, high);
+    }
+}
+
+
+int main() {
+    int array[10] = {1, 6, 4, 3, 9, 8, 8, 7, 5, 6};
+    int size = 10;
+    qsort(array, 0, size - 1);
+
+    for (int i = 0; i < size; ++i) {
+        printf("%d ", array[i]);
+    }
+}
+```
+
+---
+
+#### Exercise 5
+
+Change your linked list implementation to a **doubly linked list**
+
+
+#### Solution 5
+
+Comments to be added.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+struct Node {
+    struct Node *prev, *next;
+    int value;
+};
+
+struct List {
+    struct Node *head, *tail;
+    int size;
+};
+
+
+void print_list(struct List* list) {
+    struct Node* current = list->head;
+
+    while (current->next != list->tail) {
+        current = current->next;
+        printf("%d ", current->value);
+    }
+    printf("\n");
+}
+
+void insert(struct List* list, int val) {
+    struct Node* current = list->head;
+    list->size++;
+
+    while (current->next != list->tail) {
+        current = current->next;
+    }
+
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node*));
+    node->value = val;
+    node->next = list->tail;
+    current->next = node;
+    node->prev = current;
+    list->tail->prev = node;
+
+    list->size += 1;
+}
+
+void delete(struct List* list, int val) {
+    struct Node* current = list->head;
+    list->size--;
+
+    while (current->next != list->tail) {
+
+        if (current->next->value == val) {
+            struct Node* tmp = current->next;
+
+            current->next = current->next->next;
+            current->next->prev = current;
+            free(tmp);
+            return;
+        }
+        current = current->next;
+    }
+}
+
+int main() {
+    struct List* list = (struct List*)malloc(sizeof(struct List*));
+    list->size = 0;
+    list->head = (struct Node*)malloc(sizeof(struct Node*));
+    list->tail = (struct Node*)malloc(sizeof(struct Node*));
+    list->head->next = list->tail;
+    list->tail->prev = list->head;
+
+    assert(list != NULL && list->head != NULL && list->tail != NULL);
+
+    print_list(list);
+
+    int values[5] = {4, 6, 2, 8, 9};
+    for (int i = 0 ; i < sizeof(values) / sizeof(int); ++i) {
+        insert(list, values[i]);
+    }
+
+    print_list(list);
+
+    delete(list, 6);
+    print_list(list);
+    for (int i = 0 ; i < sizeof(values) / sizeof(int); ++i) {
+        insert(list, values[i]);
+    }
+    print_list(list);
+
+}
+```
