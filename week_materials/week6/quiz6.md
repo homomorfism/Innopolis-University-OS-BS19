@@ -108,9 +108,101 @@ Tanenbaum, 120 page.
 
 #### Task 7
 
+The following two functions P1 and P2 that share a variable B with an initial value of 2 execute concurrently:
+```c
+P1() { 
+   C = B – 1; 
+   B = 2*C;  
+}
+```
+
+```c
+P2() {
+   D = 2 * B;
+   B = D - 1; 
+}
+```
+The number of distinct values that B can possibly take after the execution is:
+
+Select one:
+- ```3``` 
+- ```1```
+- ```4```
+- ```2```
+- ```5```
+
+
+There are following ways that concurrent processes can follow
+
+```
+C = B – 1;   // C = 1
+B = 2*C;    // B = 2
+D = 2 * B;   // D  = 4
+B = D - 1;   // B  = 3
+
+
+C = B – 1;   // C = 1
+D = 2 * B;   // D = 4
+B = D - 1;   // B = 3
+B = 2*C;    // B = 2
+
+C = B – 1;  // C = 1
+D = 2 * B; // D =  4
+B = 2*C;  // B = 2
+B = D - 1;  // B = 3
+
+D = 2 * B; // D =  4
+C = B – 1;  // C = 1
+B = 2*C;  // B = 2
+B = D - 1;  // B = 3
+
+D = 2 * B; // D =  4
+B = D - 1;  // B = 3
+C = B – 1;  // C = 2
+B = 2*C;  // B = 4
+```
+
+There are 3 different possible values of B: 2, 3 and 4
+
 #### Task 8
+
+Consider the following two-process synchronization solution
+Process 0	
+```c
+Entry: loop while (turn == 1)
+  Critical region;
+Exit: turn = 1;
+Some other code;
+```
+
+Process 1
+```c
+Entry: loop while (turn == 0)
+  Critical region;
+Exit: turn = 0;
+Some other code;
+```
+The shared variable turn is initialized to zero. Which one of the following is TRUE?
+
+P.S.Progress requirement: no process running outside its critical region may block any process
+
+P.S.S. Bounded wait requirement: no process should have to wait forever to enter its critical region
+
+Select one:
+- ```This solution violates mutual exclusion requirement```
+- ```This solution violates progress requirement. Neither process is able to enter its critical section without a second process which might be too slow``` <- **Correct**
+- ```This solution violates bounded wait requirement```
+- ```This is a correct two-process synchronization solution```
+
+> No process should have to wait forever to enter its critical region.
 
 #### Task 9
 
+Are advantages of interrupt disabling:
 
-#### Task 10
+Select one:
+- ```It's easy and efficient on multiprocessors``` <- No, we can only disable interrupts only on one core.
+- ```It slows interrupt response time``` <- Disadvantage
+- ```It is efficient as it disables preemption and monopolises all of the CPUs``` <- No, comment will be added!
+- ```All of the above.```
+- ```None of the above ``` <- **Correct**

@@ -24,3 +24,4 @@ For contributing:
 - lab5 task1 add explanation
 - lab5 task2 add explanation
 - quiz5 task6, task8 add explanation
+- quiz6 task9 add explanation
