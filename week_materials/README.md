@@ -27,3 +27,4 @@ For contributing:
 - quiz6 task9 add explanation
 - week7 sucks, too difficult
 - quiz8 task8 explanation add
+- quiz8 task8 idk how to solve it
